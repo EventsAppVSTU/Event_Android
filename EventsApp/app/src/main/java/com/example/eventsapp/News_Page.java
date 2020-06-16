@@ -25,11 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Events_Page extends Fragment {
+public class News_Page extends Fragment {
     EventData eventData;
     EditText Search;
     TextView header;
-    public Events_Page(){
+    public News_Page(){
 
     }
 
@@ -42,11 +42,12 @@ public class Events_Page extends Fragment {
         final Context context = getContext();
         Search = view.findViewById(R.id.search);
         header = view.findViewById(R.id.header);
+        header.setText("Новости");
 
         String auothorization = "1 111111_2";
         NetworkService.getInstance()
                 .getJSONApi()
-                .getEventsData(auothorization)
+                .getEventNews(auothorization)
                 .enqueue(new Callback<EventData>() {
                     @Override
                     public void onResponse(@NonNull Call<EventData> call, @NonNull Response<EventData> response) {

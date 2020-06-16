@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="702dp"
+    android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:layout_marginBottom="57dp">
     <TextView
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="События"
@@ -18,7 +20,8 @@
         />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
 
 

@@ -5,7 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp">
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="57dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
@@ -14,6 +26,7 @@
         android:layout_marginTop="25dp"
         app:cardCornerRadius="15dp">
         <ImageView
+            android:id="@+id/EInImage"
             android:layout_width="match_parent"
             android:layout_height="190dp"
             android:scaleType="centerCrop"
@@ -31,6 +44,7 @@
         android:textSize="22dp"
         android:textColor="@color/textColor"/>
     <TextView
+        android:id="@+id/EInDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -39,28 +53,76 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="normal"/>
     <TextView
+        android:id="@+id/EInDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Компьютерными и смежными технологиями, интенсивное изучение и практическое освоение современных..."
         android:textSize="16dp"
         android:textColor="@color/colorAccent"/>
+    <TextView
 
-    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Место проведения:"
+        android:layout_marginTop="10dp"
+        android:textSize="22dp"
+        android:textColor="@color/textColor"/>
+    <TextView
+        android:id="@+id/EInPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="проспект ленина 37"
+        android:textSize="16dp"
+        android:textColor="@color/colorAccent"/>
+
+    <!--<androidx.cardview.widget.CardView-->
+        <!--android:id="@+id/signUp"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--app:cardCornerRadius="20dp"-->
+        <!--android:backgroundTint="@color/colorPrimary">-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Записаться"-->
+            <!--android:textSize="22dp"-->
+            <!--android:textColor="@color/colorPrimaryDark"/>-->
+    <!--</androidx.cardview.widget.CardView>-->
+
+    <TextView
         android:id="@+id/signUp"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        app:cardCornerRadius="20dp"
-        android:backgroundTint="@color/colorPrimary">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Записаться"
-            android:textSize="22dp"
-            android:textColor="@color/colorPrimaryDark"/>
-    </androidx.cardview.widget.CardView>
+        android:layout_marginTop="20dp"
+        android:text="Выбрать текущим"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ИЛИ"
+        android:gravity="center"
+        android:textSize="14dp"
+        android:textColor="@color/textColorLight"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:text="Добавить в избранное"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/colorPrimary"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
