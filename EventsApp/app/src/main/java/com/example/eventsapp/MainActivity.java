@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity  {
     private Profile_Page profile_page;
     private Time_Table_Page time_table_page;
     private News_Page news_page;
+    private int currentEvent;
 
 
 
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity  {
         navView1 = findViewById(R.id.nav_view1);
         final EventData[] userData = {new EventData()};
 
+
         String authorization = "27 ivan123";
         NetworkService.getInstance()
                 .getJSONApi()
@@ -104,6 +106,7 @@ public class MainActivity extends AppCompatActivity  {
                         final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
 //                        String currentEvent = linkedTreeMap.get("current_event").toString();
                         if(linkedTreeMap.get("current_event") != null){
+                            currentEvent = Integer.parseInt(linkedTreeMap.get("current_event").toString());
                             navView.setVisibility(View.VISIBLE);
                             navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
                             navView.setSelectedItemId(R.id.navigation_timeTable);
@@ -186,6 +189,14 @@ public class MainActivity extends AppCompatActivity  {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+    }
+
+    public int getCurrentEvent(){
+        return currentEvent;
+    }
+
+    public void setCurrentEvent(Integer id){
+        currentEvent = id;
     }
 
 

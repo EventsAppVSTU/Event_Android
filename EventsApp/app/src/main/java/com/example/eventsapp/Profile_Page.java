@@ -1,14 +1,21 @@
 package com.example.eventsapp;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -32,8 +39,11 @@ public class Profile_Page extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.profile_page, container, false);
         CardView changeEvent = view.findViewById(R.id.changeEvent);
-        TextView wipeCurrentEvent = view.findViewById(R.id.wipeCurrentEvent);
+        final TextView wipeCurrentEvent = view.findViewById(R.id.wipeCurrentEvent);
         final EventData[] eventData = {new EventData()};
+        final ProgressBar progressBar = view.findViewById(R.id.progressBar2);
+        LinearLayout option = view.findViewById(R.id.option);
+        LinearLayout contacts = view.findViewById(R.id.contacts);
 //        final Integer id = null;
 
         if (!((MainActivity)getActivity()).CheckMenuState()){
@@ -43,6 +53,8 @@ public class Profile_Page extends Fragment {
         wipeCurrentEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                wipeCurrentEvent.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
 
                 final String authorization = "27 ivan123";
                 NetworkService.getInstance()
@@ -97,6 +109,35 @@ public class Profile_Page extends Fragment {
 
             }
         });
+
+        option.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Authorization.class);
+                startActivity(intent);
+            }
+        });
+
+        contacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = getContext();
+                Contacts_Page contacts_page = new Contacts_Page();
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.container, contacts_page);
+                fragmentTransaction.addToBackStack("tag1").commit();
+
+            }
+        });
+
+
+
+
+
+
+
 
 
 

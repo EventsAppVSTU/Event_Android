@@ -23,7 +23,7 @@ public interface JSONPlaceHolderApi {
     public Call<EventData> getUserData(@Header("Authorization") String authorization, @Query("id") int id);
 
     @GET("/robo/events/eventNews.php")
-    public Call<EventData> getEventNews(@Header("Authorization") String authorization);
+    public Call<EventData> getEventNews(@Header("Authorization") String authorization, @Query("event_id") int id);
 
 
 }

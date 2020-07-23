@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -37,7 +38,7 @@ public class Event_Information_Page extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.event_information_page, container, false);
-        TextView signUp = view.findViewById(R.id.signUp);
+        final TextView signUp = view.findViewById(R.id.signUp);
         final Context context = getContext();
         final EventData[] eventData = {new EventData()};
 
@@ -47,6 +48,7 @@ public class Event_Information_Page extends Fragment {
         TextView EInDate = view.findViewById(R.id.EInDate);
         TextView EInPlace = view.findViewById(R.id.EInPlace);
         ImageView EInImage = view.findViewById(R.id.EInImage);
+        final ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
         String name = getArguments().getString("name");
         String description = getArguments().getString("description");
@@ -166,6 +168,9 @@ public class Event_Information_Page extends Fragment {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((MainActivity)getActivity()).setCurrentEvent(id);
+                signUp.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
 
 
 

@@ -162,6 +162,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:id="@+id/option"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
@@ -262,6 +263,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:id="@+id/contacts"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal"
@@ -300,6 +302,14 @@
                 android:src="@color/textColorLight"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/wipeCurrentEvent"

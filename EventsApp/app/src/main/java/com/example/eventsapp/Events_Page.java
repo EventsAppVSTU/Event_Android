@@ -66,9 +66,7 @@ public class Events_Page extends Fragment {
                         Search.addTextChangedListener(new TextWatcher() {
                             @Override
                             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                             }
-
                             @Override
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 String userInput = charSequence.toString();
@@ -96,15 +94,10 @@ public class Events_Page extends Fragment {
 
                             }
                         });
-
-
-
-
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<EventData> call, @NonNull Throwable t) {
-
                         t.printStackTrace();
                     }
                 });
