@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -25,5 +26,13 @@ public interface JSONPlaceHolderApi {
     @GET("/robo/events/eventNews.php")
     public Call<EventData> getEventNews(@Header("Authorization") String authorization, @Query("event_id") int id);
 
+    @GET("/robo/users/userCredentals.php")
+    public Call<EventData> getAuthorization(@Query("login") String login, @Query("password") String password);
+
+    @POST("/robo/users/userCredentals.php")
+    public Call <Object> getRegistration (@Body RegistrationData registrationData);
+
+    @GET("/robo/performances/performances.php")
+    public Call<EventData> getTimeTable(@Header("Authorization") String authorization, @Query("event_id") int id);
 
 }

@@ -14,7 +14,7 @@
         android:background="@drawable/ic_bg">
 
         <TextView
-
+            android:id="@+id/regHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Регистрация"
@@ -25,6 +25,7 @@
             android:textStyle="bold"
             />
         <EditText
+            android:id="@+id/regName"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
@@ -33,6 +34,7 @@
             android:hint="Введите ваше имя"/>
 
         <EditText
+            android:id="@+id/regSurname"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
@@ -40,15 +42,16 @@
             android:layout_marginTop="40dp"
             android:hint="Введите вашу фамилию" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="40dp"
-            android:hint="Придумайте никнейм" />
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:layout_marginTop="40dp"-->
+            <!--android:hint="Придумайте никнейм" />-->
 
         <EditText
+            android:id="@+id/regEmail"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
@@ -57,14 +60,25 @@
             android:hint="Введите ваш e-mail" />
 
         <EditText
+            android:id="@+id/regPassword"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="40dp"
+            android:inputType="numberPassword"
+
             android:hint="Придумайте пароль" />
 
+        <ProgressBar
+            android:id="@+id/regProgressBar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
         <Button
+            android:id="@+id/regButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"

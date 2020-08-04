@@ -31,6 +31,7 @@
         android:scaleType="centerCrop"/>
 </androidx.cardview.widget.CardView>
     <TextView
+        android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Иван"
@@ -40,6 +41,7 @@
         android:textColor="@color/textColor"
         android:textStyle="bold"/>
     <TextView
+        android:id="@+id/userSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Иванов"
@@ -100,56 +102,56 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <!--<androidx.cardview.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
 
-        android:elevation="2dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:background="@color/colorPrimaryDark">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_library_books_black_24dp"
-                    android:tint="@color/colorAccent"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:textStyle="normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="История"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorAccent"
-                    android:layout_gravity="center"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_chevron_right_black_24dp"
-                    android:tint="@color/textColorLight"
-                    />
-            </LinearLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.7dp"
-                android:src="@color/textColorLight"/>
-        </LinearLayout>
+        <!--android:elevation="2dp"-->
+        <!--&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@color/colorPrimaryDark">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="25dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:src="@drawable/ic_library_books_black_24dp"-->
+                    <!--android:tint="@color/colorAccent"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<TextView-->
+                    <!--android:textStyle="normal"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:text="История"-->
+                    <!--android:textSize="18dp"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1" />-->
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:src="@drawable/ic_chevron_right_black_24dp"-->
+                    <!--android:tint="@color/textColorLight"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.7dp"-->
+                <!--android:src="@color/textColorLight"/>-->
+        <!--</LinearLayout>-->
 
-    </androidx.cardview.widget.CardView>
+    <!--</androidx.cardview.widget.CardView>-->
 
 
     <androidx.cardview.widget.CardView
@@ -203,55 +205,56 @@
     </androidx.cardview.widget.CardView>
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="0dp"
-        android:layout_marginTop="40dp"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:background="@color/colorPrimaryDark">
-                <ImageView
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/ic_live_help_black_24dp"
-                    android:tint="@color/colorAccent"
-                    android:layout_gravity="center"/>
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:textStyle="normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Помощь"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorAccent"
-                    android:layout_gravity="center"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_chevron_right_black_24dp"
-                    android:tint="@color/textColorLight"
-                    />
-            </LinearLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0.7dp"
-                android:src="@color/textColorLight"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    <!--<androidx.cardview.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:elevation="0dp"-->
+        <!--android:layout_marginTop="40dp"-->
+        <!--&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical">-->
+            <!--<LinearLayout-->
+                <!--android:id="@+id/support"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@color/colorPrimaryDark">-->
+                <!--<ImageView-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_width="25dp"-->
+                    <!--android:layout_height="25dp"-->
+                    <!--android:src="@drawable/ic_live_help_black_24dp"-->
+                    <!--android:tint="@color/colorAccent"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<TextView-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:textStyle="normal"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Помощь"-->
+                    <!--android:textSize="18dp"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:layout_gravity="center"/>-->
+                <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1" />-->
+                <!--<ImageView-->
+                    <!--android:layout_width="35dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:src="@drawable/ic_chevron_right_black_24dp"-->
+                    <!--android:tint="@color/textColorLight"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.7dp"-->
+                <!--android:src="@color/textColorLight"/>-->
+        <!--</LinearLayout>-->
+    <!--</androidx.cardview.widget.CardView>-->
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -323,6 +326,7 @@
                 android:layout_gravity="center"/>
 
     <Button
+        android:id="@+id/exitBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

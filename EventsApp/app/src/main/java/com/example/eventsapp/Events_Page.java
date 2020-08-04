@@ -1,6 +1,8 @@
 package com.example.eventsapp;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +27,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Events_Page extends Fragment {
     EventData eventData;
     EditText Search;
@@ -43,10 +47,20 @@ public class Events_Page extends Fragment {
         Search = view.findViewById(R.id.search);
         header = view.findViewById(R.id.header);
 
-        String auothorization = "1 111111_2";
+        SQLiteDatabase db = getContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS user (id INTEGER, login TEXT, password TEXT )");
+        Cursor query = db.rawQuery("SELECT * FROM user;", null);
+        query.moveToFirst();
+        int idSQL = query.getInt(query.getColumnIndex("id"));
+        String passwordSQL = query.getString( query.getColumnIndex("password") );
+
+
+        final String authorization = idSQL + " "  + passwordSQL;
+
+
         NetworkService.getInstance()
                 .getJSONApi()
-                .getEventsData(auothorization)
+                .getEventsData(authorization)
                 .enqueue(new Callback<EventData>() {
                     @Override
                     public void onResponse(@NonNull Call<EventData> call, @NonNull Response<EventData> response) {

@@ -45,12 +45,6 @@ public class Time_Table_Page extends Fragment {
         final View view = inflater.inflate(R.layout.time_table_page, container, false);
 
 
-
-
-
-
-
-
         RecyclerView weekList = view.findViewById(R.id.weekList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         weekList.setLayoutManager(layoutManager);
@@ -59,6 +53,7 @@ public class Time_Table_Page extends Fragment {
         AdapterForWeekList weekAdapter = new AdapterForWeekList(3);
         weekList.setAdapter(weekAdapter);
         weekList.setHasFixedSize(true);
+
 
 
         RecyclerView TTList = view.findViewById(R.id.timeTableList);

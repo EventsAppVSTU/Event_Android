@@ -1,6 +1,8 @@
 package com.example.eventsapp;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Event_Information_Page extends Fragment {
 
@@ -172,13 +176,18 @@ public class Event_Information_Page extends Fragment {
                 signUp.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
 
+                SQLiteDatabase db = getContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
+                db.execSQL("CREATE TABLE IF NOT EXISTS user (id INTEGER, login TEXT, password TEXT )");
+                Cursor query = db.rawQuery("SELECT * FROM user;", null);
+                query.moveToFirst();
+                int idSQL = query.getInt(query.getColumnIndex("id"));
+                String passwordSQL = query.getString( query.getColumnIndex("password") );
 
 
-
-                final String authorization = "27 ivan123";
+                final String authorization = idSQL + " "  + passwordSQL;
                 NetworkService.getInstance()
                         .getJSONApi()
-                        .getUserData(authorization, 27)
+                        .getUserData(authorization, idSQL)
                         .enqueue(new Callback<EventData>() {
                             @Override
                             public void onResponse(@NonNull Call<EventData> call, @NonNull Response<EventData> response) {
@@ -186,9 +195,6 @@ public class Event_Information_Page extends Fragment {
                                 final List obj = eventData[0].getObj();
                                 final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
                                 UserData userData = new UserData(Integer.parseInt(linkedTreeMap.get("id").toString()), linkedTreeMap.get("name").toString(), linkedTreeMap.get("surname").toString(), linkedTreeMap.get("image").toString(), Integer.parseInt(linkedTreeMap.get("organization_id").toString()), id.toString(), linkedTreeMap.get("login").toString(), linkedTreeMap.get("password").toString());
-
-
-
 
 
                                 NetworkService.getInstance()

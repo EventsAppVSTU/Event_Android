@@ -2,6 +2,8 @@ package com.example.eventsapp;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity  {
     private BottomNavigationView navView1;
     private Events_Page eventsPage;
     private Profile_Page profile_page;
-    private Time_Table_Page time_table_page;
+    private Time_Table_PageV2 time_table_page;
     private News_Page news_page;
     private int currentEvent;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity  {
             Fragment fragment = null;
             eventsPage = new Events_Page();
             profile_page = new Profile_Page();
-            time_table_page = new Time_Table_Page();
+            time_table_page = new Time_Table_PageV2();
             news_page = new News_Page();
             switch (item.getItemId()) {
                 case R.id.navigation_news:
@@ -93,11 +95,20 @@ public class MainActivity extends AppCompatActivity  {
         navView1 = findViewById(R.id.nav_view1);
         final EventData[] userData = {new EventData()};
 
+        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS user (id INTEGER, login TEXT, password TEXT )");
+        Cursor query = db.rawQuery("SELECT * FROM user;", null);
+        query.moveToFirst();
+        int idSQL = query.getInt(query.getColumnIndex("id"));
+        String passwordSQL = query.getString( query.getColumnIndex("password") );
 
-        String authorization = "27 ivan123";
+
+        final String authorization = idSQL + " "  + passwordSQL;
+
+
         NetworkService.getInstance()
                 .getJSONApi()
-                .getUserData(authorization, 27)
+                .getUserData(authorization, idSQL)
                 .enqueue(new Callback<EventData>() {
                     @Override
                     public void onResponse(@NonNull Call<EventData> call, @NonNull Response<EventData> response) {
@@ -183,7 +194,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    private void clearBackStack() {
+    public void clearBackStack() {
         FragmentManager manager = getSupportFragmentManager();
         if (manager.getBackStackEntryCount() > 0) {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
