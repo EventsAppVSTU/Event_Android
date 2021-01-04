@@ -10,8 +10,27 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+//    @Test
+//    public void addition_isCorrect() {
+//        assertEquals(4, 2 + 2);
+//    }
+
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void removeTest() {
+        Plug plug = new Plug();
+        boolean result = plug.deleteRawData(111);
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void confirmedTest() {
+        Plug plug = new Plug();
+        plug.getConfirmedData();
+        int expectedCsize = 1;
+        int expectedRsize = 16;
+        int actualCsize = plug.confirmedDataSize();
+        int actualRsize = plug.rawDataSize();
+        assertEquals(expectedCsize, actualCsize);
+        assertEquals(expectedRsize, actualRsize);
     }
 }

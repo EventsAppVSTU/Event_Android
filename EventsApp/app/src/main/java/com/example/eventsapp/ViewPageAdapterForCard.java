@@ -44,55 +44,9 @@ public class ViewPageAdapterForCard extends PagerAdapter {
         TextView date = view.findViewById(R.id.date);
         LinkedTreeMap linkedTreeMap = (LinkedTreeMap) data.get(position).get(0);
 
-        String dateResult = "";
-        String[] sDate = linkedTreeMap.get("datePerf").toString().split(" ");
-        String[] DMYs = sDate[0].split("-");
+        DateWork dateWork = new DateWork();
+        String dateResult = dateWork.getPerfDate(linkedTreeMap.get("datePerf").toString());
 
-        String sMonth = "";
-
-        switch (DMYs[1]) {
-            case ("00"):
-                sMonth = "не опознанная дата";
-                break;
-            case ("01"):
-                sMonth = "января";
-                break;
-            case ("02"):
-                sMonth = "февраля";
-                break;
-            case ("03"):
-                sMonth = "марта";
-                break;
-            case ("04"):
-                sMonth = "апреля";
-                break;
-            case ("05"):
-                sMonth = "мая";
-                break;
-            case ("06"):
-                sMonth = "июня";
-                break;
-            case ("07"):
-                sMonth = "июля";
-                break;
-            case ("08"):
-                sMonth = "августа";
-                break;
-            case ("09"):
-                sMonth = "сентября";
-                break;
-            case ("10"):
-                sMonth = "октября";
-                break;
-            case ("11"):
-                sMonth = "ноября";
-                break;
-            case ("12"):
-                sMonth = "декабря";
-                break;
-        }
-
-        dateResult = DMYs[2] + " " + sMonth;
         date.setText(dateResult);
 
         RecyclerView TodayList = view.findViewById(R.id.TodayList);

@@ -7,4 +7,5 @@
     <color name="elemental">#E0E0E0</color>
     <color name="textColorLight">#BBBBBB</color>
     <color name="lightColor">#DFDFDF</color>
+    <color name="star">#FFC107</color>
 </resources>

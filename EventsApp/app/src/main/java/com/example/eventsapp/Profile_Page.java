@@ -45,6 +45,7 @@ public class Profile_Page extends Fragment {
         final View view = inflater.inflate(R.layout.profile_page, container, false);
         view.setVisibility(View.GONE);
         CardView changeEvent = view.findViewById(R.id.changeEvent);
+        CardView bids = view.findViewById(R.id.bids);
         final TextView wipeCurrentEvent = view.findViewById(R.id.wipeCurrentEvent);
         final EventData[] eventData = {new EventData()};
         final ProgressBar progressBar = view.findViewById(R.id.progressBar2);
@@ -59,6 +60,8 @@ public class Profile_Page extends Fragment {
         if (!((MainActivity)getActivity()).CheckMenuState()){
             wipeCurrentEvent.setVisibility(View.GONE);
         }
+
+        ((MainActivity)getActivity()).setSwitchState(0);
 
 
 
@@ -221,6 +224,18 @@ public class Profile_Page extends Fragment {
                 fragmentTransaction.replace(R.id.container, contacts_page);
                 fragmentTransaction.addToBackStack("tag1").commit();
 
+            }
+        });
+
+        bids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context = getContext();
+                Bids_Page bids_page = new Bids_Page();
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, bids_page);
+                fragmentTransaction.addToBackStack("tag777").commit();
             }
         });
         return view;

@@ -55,6 +55,8 @@ public class Events_Page extends Fragment {
         String passwordSQL = query.getString( query.getColumnIndex("password") );
 
 
+
+
         final String authorization = idSQL + " "  + passwordSQL;
 
 
@@ -85,20 +87,15 @@ public class Events_Page extends Fragment {
                             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                                 String userInput = charSequence.toString();
                                 List newObj = new ArrayList();
-//                                List<Food> NewFood = new ArrayList<>();
-
 
                                 for(int k = 0; k< obj.size(); k++){
                                     LinkedTreeMap linkedTreeMapNew = (LinkedTreeMap) obj.get(k);
                                     if (Pattern.compile(Pattern.quote(userInput), Pattern.CASE_INSENSITIVE).matcher(linkedTreeMapNew.get("name").toString()).find()){
                                         newObj.add(obj.get(k));
-//                        Pattern.compile(Pattern.quote(Food.getName()), Pattern.CASE_INSENSITIVE).matcher(userInput).find();
-//                        Food.getName().contains(userInput)
                                     }
                                 }
 
                                 EventsAdapter[0] = new AdapterForEventsList(context, newObj, header);
-//                                adapterForSearch[0] = new AdapterForSearch(getContext(), NewFood, mchipGroup, view);
                                 eventsList.setAdapter(EventsAdapter[0]);
 
                             }

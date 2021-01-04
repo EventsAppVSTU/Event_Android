@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.raycoarana.codeinputview.CodeInputView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -31,6 +34,8 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 public class Event_Information_Page extends Fragment {
+
+
 
     public Event_Information_Page(){
 
@@ -52,115 +57,24 @@ public class Event_Information_Page extends Fragment {
         TextView EInDate = view.findViewById(R.id.EInDate);
         TextView EInPlace = view.findViewById(R.id.EInPlace);
         ImageView EInImage = view.findViewById(R.id.EInImage);
+        ImageView privateIndicator = view.findViewById(R.id.privateIndicatorInfo);
+        TextView privateNote = view.findViewById(R.id.privateNote);
         final ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
-        String name = getArguments().getString("name");
-        String description = getArguments().getString("description");
-        String startDate = getArguments().getString("startDate");
-        String endDate = getArguments().getString("endDate");
-        String image = getArguments().getString("image");
-        String place = getArguments().getString("place");
+        final String name = getArguments().getString("name");
+        final String description = getArguments().getString("description");
+        final String startDate = getArguments().getString("startDate");
+        final String endDate = getArguments().getString("endDate");
+        final String image = getArguments().getString("image");
+        final String place = getArguments().getString("place");
+        int state = getArguments().getInt("state");
+        int privateState = getArguments().getInt("private");
         final Integer id = Integer.parseInt(getArguments().getString("id"));
 
-        String dateResult = "";
-        String [] sDate = startDate.split(" ");
-        String [] eDate = endDate.split(" ");
-        String [] DMYs = sDate[0].split("-");
-        String [] DMYe = eDate[0].split("-");
+        DateWork dateWork = new DateWork();
+        String dateResult = dateWork.getDate(startDate, endDate);
 
-        String sMonth = "";
-        String eMonth = "";
 
-        switch (DMYs[1]){
-            case ("00"):
-                sMonth = "не опознанная дата";
-                break;
-            case ("01"):
-                sMonth = "января";
-                break;
-            case ("02"):
-                sMonth = "февраля";
-                break;
-            case ("03"):
-                sMonth = "марта";
-                break;
-            case ("04"):
-                sMonth = "апреля";
-                break;
-            case ("05"):
-                sMonth = "мая";
-                break;
-            case ("06"):
-                sMonth = "июня";
-                break;
-            case ("07"):
-                sMonth = "июля";
-                break;
-            case ("08"):
-                sMonth = "августа";
-                break;
-            case ("09"):
-                sMonth = "сентября";
-                break;
-            case ("10"):
-                sMonth = "октября";
-                break;
-            case ("11"):
-                sMonth = "ноября";
-                break;
-            case ("12"):
-                sMonth = "декабря";
-                break;
-        }
-
-        switch (DMYe[1]){
-            case ("00"):
-                eMonth = "не опознанная дата";
-                break;
-            case ("01"):
-                eMonth = "января";
-                break;
-            case ("02"):
-                eMonth = "февраля";
-                break;
-            case ("03"):
-                eMonth = "марта";
-                break;
-            case ("04"):
-                eMonth = "апреля";
-                break;
-            case ("05"):
-                eMonth = "мая";
-                break;
-            case ("06"):
-                eMonth = "июня";
-                break;
-            case ("07"):
-                eMonth = "июля";
-                break;
-            case ("08"):
-                eMonth = "августа";
-                break;
-            case ("09"):
-                eMonth = "сентября";
-                break;
-            case ("10"):
-                eMonth = "октября";
-                break;
-            case ("11"):
-                eMonth = "ноября";
-                break;
-            case ("12"):
-                eMonth = "декабря";
-                break;
-        }
-
-        if(sMonth.equals(eMonth)){
-            dateResult += DMYs[2] + " - " + DMYe[2] + " " + sMonth;
-        }
-        else {
-            dateResult += DMYs[2] + " " + sMonth + " - " + DMYe[2] + " " + eMonth;
-        }
 
         EInfName.setText(name);
         EInDate.setText(dateResult);
@@ -168,7 +82,7 @@ public class Event_Information_Page extends Fragment {
         EInPlace.setText(place);
         Picasso.get().load(image).resize(0, 1000).into(EInImage);
 
-
+        if (state == 2 && privateState == 0){
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,9 +120,6 @@ public class Event_Information_Page extends Fragment {
                                                 Object object = response.body();
                                                 ((MainActivity)getActivity()).StartClassicView();
 
-
-
-
                                             }
 
                                             @Override
@@ -217,11 +128,6 @@ public class Event_Information_Page extends Fragment {
                                                 t.printStackTrace();
                                             }
                                         });
-
-
-
-
-
                             }
 
                             @Override
@@ -231,26 +137,85 @@ public class Event_Information_Page extends Fragment {
                             }
                         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-//                Time_Table_Page time_table_page = new Time_Table_Page();
-//                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = manager.beginTransaction();
-////                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.replace(R.id.container, time_table_page);
-//                fragmentTransaction.commit();
             }
-        });
+
+
+        });} else if (state == 1){
+            ((MainActivity)getActivity()).setSwitchState(1);
+            signUp.setText("Ввести код подтверждения");
+            final EditText editText = view.findViewById(R.id.code_input);
+            editText.setVisibility(View.VISIBLE);
+            signUp.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+                    if(editText.getText().toString().equals("1234")){
+
+                        Toast.makeText(getContext(), "Верный код", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Toast.makeText(getContext(), "Неверный код", Toast.LENGTH_SHORT).show();
+                        editText.setText("");
+                    }
+                }
+            });
+        } else if (state == 0){
+            ((MainActivity)getActivity()).setSwitchState(0);
+            signUp.setText("Отменить заявку");
+            signUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    ((MainActivity)getActivity()).removePlugElement(id);
+                    Bids_Page bids_page = new Bids_Page();
+                    FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                    manager.popBackStack();
+
+                }
+            });
+
+
+        } else if (privateState == 1 ){
+            privateIndicator.setVisibility(View.VISIBLE);
+            privateNote.setVisibility(View.VISIBLE);
+            boolean exist1 = false;
+            for (int i = 0; i < ((MainActivity)getActivity()).getRawData().size(); i++) {
+                if (((MainActivity) getActivity()).getRawData().get(i).getName().equals(name)) {
+                    exist1 = true;
+                }
+            }
+            if (exist1){
+                signUp.setText("Отменить заявку");
+            } else {
+            signUp.setText("Отправить заявку");
+            }
+            signUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean exist = false;
+                    for (int i = 0; i < ((MainActivity)getActivity()).getRawData().size(); i++) {
+                        if (((MainActivity) getActivity()).getRawData().get(i).getName().equals(name)) {
+                            exist = true;
+                        }
+                    }
+                    if (!exist){
+                        signUp.setText("Отменить заявку");
+
+                        Toast.makeText(getContext(), "Заявка отправленна", Toast.LENGTH_SHORT).show();
+                        EventServerData eventServerData = new EventServerData(id, name, description, startDate,endDate, image, place);
+                        ((MainActivity)getActivity()).addRawData(eventServerData);}
+                    else {
+                        signUp.setText("Отправить заявку");
+
+                        Toast.makeText(getContext(), "Заявка отменена", Toast.LENGTH_SHORT).show();
+                        ((MainActivity)getActivity()).removePlugElement(id);
+                    }
+
+
+                }
+            });
+        }
 
 
 

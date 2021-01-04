@@ -33,6 +33,10 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity  {
 
+    Plug plug = new Plug();
+
+    private int switchState = 0;
+
     private View itemMenu;
     private BottomNavigationView navView;
     private BottomNavigationView navView1;
@@ -93,6 +97,9 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         navView = findViewById(R.id.nav_view);
         navView1 = findViewById(R.id.nav_view1);
+
+
+
         final EventData[] userData = {new EventData()};
 
         SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
@@ -208,6 +215,30 @@ public class MainActivity extends AppCompatActivity  {
 
     public void setCurrentEvent(Integer id){
         currentEvent = id;
+    }
+
+    public void removePlugElement (int id){
+        plug.deleteRawData(id);
+    }
+
+    public List<EventServerData> getRawData(){
+        return plug.getRawData();
+    }
+
+    public void addRawData (EventServerData eventServerData){
+        plug.addData(eventServerData);
+    }
+
+    public List<EventServerData> getConfirmedData(){
+        return plug.getConfirmedData();
+    }
+
+    public int getSwitchState (){
+        return switchState;
+    }
+
+    public void setSwitchState (int state){
+        switchState = state;
     }
 
 
