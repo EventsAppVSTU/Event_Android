@@ -77,7 +77,7 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
                 eventInfo.setArguments(args);
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, eventInfo);
+                fragmentTransaction.replace(R.id.content_main, eventInfo);
                 fragmentTransaction.addToBackStack("bidsPage").commit();
             }
         });

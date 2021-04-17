@@ -125,18 +125,27 @@ public class MainActivity extends AppCompatActivity  {
 //                        String currentEvent = linkedTreeMap.get("current_event").toString();
                         if(linkedTreeMap.get("current_event") != null){
                             currentEvent = Integer.parseInt(linkedTreeMap.get("current_event").toString());
+
+                            navView.getMenu().clear();
+                            navView.inflateMenu(R.menu.bottom_nav_menu);
+
                             navView.setVisibility(View.VISIBLE);
                             navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
                             navView.setSelectedItemId(R.id.navigation_timeTable);
                         }
                         else {
-                            navView1.setVisibility(View.VISIBLE);
-                            navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-                            navView1.setSelectedItemId(R.id.navigation_events);
+
+                            navView.getMenu().clear();
+                            navView.inflateMenu(R.menu.bottom_nav_menu2);
+
+                            navView.setVisibility(View.VISIBLE);
+                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+                            navView.setSelectedItemId(R.id.navigation_events);
+
+//                            navView1.setVisibility(View.VISIBLE);
+//                            navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//                            navView1.setSelectedItemId(R.id.navigation_events);
                         }
-
-
-
 
 
                     }
@@ -163,29 +172,39 @@ public class MainActivity extends AppCompatActivity  {
 
     }
     private void SetFragment(Fragment fragment){
+
         clearBackStack();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.replace(R.id.content_main, fragment, null);
 //        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
     public void StartClassicView(){
 
+        navView.getMenu().clear();
+        navView.inflateMenu(R.menu.bottom_nav_menu);
+
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setSelectedItemId(R.id.navigation_timeTable);
-        navView1.setVisibility(View.GONE);
-        navView.setVisibility(View.VISIBLE);
+//        navView1.setVisibility(View.GONE);
+//        navView.setVisibility(View.VISIBLE);
 
 
     }
 
     public void StartStartView(){
 
-        navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navView1.setSelectedItemId(R.id.navigation_events);
-        navView.setVisibility(View.GONE);
-        navView1.setVisibility(View.VISIBLE);
+        navView.getMenu().clear();
+        navView.inflateMenu(R.menu.bottom_nav_menu2);
+
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navView.setSelectedItemId(R.id.navigation_events);
+
+//        navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        navView1.setSelectedItemId(R.id.navigation_events);
+//        navView.setVisibility(View.GONE);
+//        navView1.setVisibility(View.VISIBLE);
 
 
     }

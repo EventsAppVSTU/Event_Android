@@ -8,4 +8,6 @@
     <color name="textColorLight">#BBBBBB</color>
     <color name="lightColor">#DFDFDF</color>
     <color name="star">#FFC107</color>
+    <color name="editText">#808080</color>
+
 </resources>

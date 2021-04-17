@@ -86,7 +86,19 @@ public class Option_Page extends Fragment {
                                 if (regName.getText().toString().length() != 0 && regSurname.getText().toString().length() != 0  && regPassword.getText().toString().length() != 0) {
                                     progressBar.setVisibility(View.VISIBLE);
                                     regButton.setVisibility(View.GONE);
-                                    UserData userData = new UserData(id, regName.getText().toString(), regSurname.getText().toString(), image, Integer.parseInt(organization_id), finalCurrent_event, login, regPassword.getText().toString());
+                                    UserData userData = new UserData(id,
+                                            regName.getText().toString(),
+                                            regSurname.getText().toString(),
+                                            image,
+                                            Integer.parseInt(organization_id),
+                                            finalCurrent_event,
+                                            login,
+                                            regPassword.getText().toString(),
+                                            0,
+                                            "8800",
+                                            "http",
+                                            "ggbb"
+                                    );
 
                                     NetworkService.getInstance()
                                             .getJSONApi()
@@ -107,7 +119,7 @@ public class Option_Page extends Fragment {
                                                     Profile_Page profile_page = new Profile_Page();
                                                     FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                                                     FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                                                    fragmentTransaction.replace(R.id.container, profile_page);
+                                                    fragmentTransaction.replace(R.id.content_main, profile_page);
                                                     fragmentTransaction.commit();
                                                 }
 

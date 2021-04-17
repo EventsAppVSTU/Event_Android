@@ -79,7 +79,9 @@ public class Authorization extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(@NonNull Call<EventData> call, @NonNull Throwable t) {
-
+                                        Toast.makeText(getApplicationContext(), "Подключение к серверу отсутствует", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                        authorizationEnter.setVisibility(View.VISIBLE);
                                         t.printStackTrace();
                                     }
                                 });

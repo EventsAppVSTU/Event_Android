@@ -5,12 +5,18 @@ public class RegistrationData {
     String name;
     String surname;
     String image;
-    int organization_id;
+    String organization_id;
     String login;
     String password;
     String current_event;
+    int organization_verify;
+    String phone;
+    String web_link;
+    String bio;
 
-    public RegistrationData(String name, String surname, String image, int organization_id, String current_event, String login, String password) {
+    public RegistrationData(String name, String surname, String image, String organization_id,
+                            String current_event, String login, String password,
+                            int organization_verify, String phone, String web_link, String bio) {
         this.name = name;
         this.surname = surname;
         this.image = image;
@@ -18,5 +24,9 @@ public class RegistrationData {
         this.current_event = current_event;
         this.login = login;
         this.password = password;
+        this.organization_verify = organization_verify;
+        this.phone = phone;
+        this.web_link = web_link;
+        this.bio = bio;
     }
 }

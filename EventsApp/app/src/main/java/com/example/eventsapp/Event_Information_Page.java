@@ -80,6 +80,7 @@ public class Event_Information_Page extends Fragment {
         EInDate.setText(dateResult);
         EInDescription.setText(description);
         EInPlace.setText(place);
+        if (image != null && !image.equals(""))
         Picasso.get().load(image).resize(0, 1000).into(EInImage);
 
         if (state == 2 && privateState == 0){
@@ -108,7 +109,20 @@ public class Event_Information_Page extends Fragment {
                                 eventData[0] = response.body();
                                 final List obj = eventData[0].getObj();
                                 final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
-                                UserData userData = new UserData(Integer.parseInt(linkedTreeMap.get("id").toString()), linkedTreeMap.get("name").toString(), linkedTreeMap.get("surname").toString(), linkedTreeMap.get("image").toString(), Integer.parseInt(linkedTreeMap.get("organization_id").toString()), id.toString(), linkedTreeMap.get("login").toString(), linkedTreeMap.get("password").toString());
+                                UserData userData = new UserData(
+                                        Integer.parseInt(linkedTreeMap.get("id").toString()),
+                                        linkedTreeMap.get("name").toString(),
+                                        linkedTreeMap.get("surname").toString(),
+                                        linkedTreeMap.get("image").toString(),
+                                        Integer.parseInt(linkedTreeMap.get("organization_id").toString()),
+                                        id.toString(),
+                                        linkedTreeMap.get("login").toString(),
+                                        linkedTreeMap.get("password").toString(),
+                                        Integer.parseInt(linkedTreeMap.get("organization_verify").toString()),
+                                        linkedTreeMap.get("phone").toString(),
+                                        linkedTreeMap.get("web_link").toString(),
+                                        linkedTreeMap.get("bio").toString()
+                                );
 
 
                                 NetworkService.getInstance()

@@ -18,6 +18,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.gson.internal.LinkedTreeMap;
 import com.squareup.picasso.Picasso;
 
@@ -75,15 +77,12 @@ public class AdapterForEventsList extends RecyclerView.Adapter<AdapterForEventsL
                     args.putString("place", linkedTreeMap.get("place").toString());
                     args.putString("id", linkedTreeMap.get("id").toString());
                     args.putInt("state", 2);
-                    if (linkedTreeMap.get("name").toString().equals("Робошкола") || linkedTreeMap.get("name").toString().equals("Космические технологии")) {
-                        args.putInt("private", 1);
-                    } else {
-                        args.putInt("private", 0);
-                    }
+                    args.putInt("private", Integer.parseInt(linkedTreeMap.get("private").toString()));
+
                     eventInfo.setArguments(args);
                     FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container, eventInfo);
+                    fragmentTransaction.replace(R.id.content_main, eventInfo);
                     fragmentTransaction.addToBackStack("tag").commit();
                 }
             });
@@ -110,6 +109,9 @@ public class AdapterForEventsList extends RecyclerView.Adapter<AdapterForEventsL
         TextView detailsState;
         ImageView detailsChevron;
         ImageView privateIndicator;
+        ChipGroup tags;
+        Chip orgName;
+        Chip eventType;
 
 
         public EventsListViewHolder(@NonNull View itemView) {
@@ -124,15 +126,33 @@ public class AdapterForEventsList extends RecyclerView.Adapter<AdapterForEventsL
             detailsState = itemView.findViewById(R.id.detailsState);
             detailsChevron = itemView.findViewById(R.id.detailsChevron);
             privateIndicator = itemView.findViewById(R.id.privateIndicator);
+            tags = itemView.findViewById(R.id.tags);
+            orgName = itemView.findViewById(R.id.orgName);
+            eventType = itemView.findViewById(R.id.eventType);
+
 
         }
         void bind(int Index){
             if(headerState.getText().toString().equals("События")) {
                 LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(Index);
-                if (linkedTreeMap.get("name").toString().equals("Робошкола") || linkedTreeMap.get("name").toString().equals("Космические технологии")){
+                if (linkedTreeMap.get("private").toString().equals("1")){
                     privateIndicator.setVisibility(View.VISIBLE);
+                } else privateIndicator.setVisibility(View.GONE);
 
-                }
+                if (linkedTreeMap.get("organization_name") != null){
+                    if (!linkedTreeMap.get("organization_name").equals("")){
+                        orgName.setText(linkedTreeMap.get("organization_name").toString());
+                        if (orgName.getVisibility() == View.GONE) orgName.setVisibility(View.VISIBLE);
+                    } else orgName.setVisibility(View.GONE);
+                } else orgName.setVisibility(View.GONE);
+
+                if (linkedTreeMap.get("category_name") != null){
+                    if (!linkedTreeMap.get("category_name").equals("")){
+                        eventType.setText(linkedTreeMap.get("category_name").toString());
+                        if (eventType.getVisibility() == View.GONE) eventType.setVisibility(View.VISIBLE);
+                    } else eventType.setVisibility(View.GONE);
+                } else eventType.setVisibility(View.GONE);
+
                 EventName.setText(linkedTreeMap.get("name").toString());
                 String Describe = linkedTreeMap.get("description").toString();
                 String[] descr = Describe.split(" ");
@@ -165,6 +185,7 @@ public class AdapterForEventsList extends RecyclerView.Adapter<AdapterForEventsL
                 EventName.setText(linkedTreeMap1.get("name").toString());
 //                NewsCast.setVisibility(View.VISIBLE);
                 EventDate.setVisibility(View.GONE);
+                tags.setVisibility(View.GONE);
 
                 String Describe = linkedTreeMap1.get("description").toString();
                 String[] descr = Describe.split(" ");

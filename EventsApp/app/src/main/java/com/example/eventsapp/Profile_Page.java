@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,8 +56,14 @@ public class Profile_Page extends Fragment {
 //        LinearLayout support = view.findViewById(R.id.support);
         Button exitBtn = view.findViewById(R.id.exitBtn);
 //        final Integer id = null;
+        final ImageView avatar = view.findViewById(R.id.avatar);
         final TextView userName = view.findViewById(R.id.userName);
         final TextView userSurname = view.findViewById(R.id.userSurname);
+        final TextView phone = view.findViewById(R.id.phone);
+        final TextView webLink = view.findViewById(R.id.web_link);
+        final TextView userMail = view.findViewById(R.id.userMail);
+        final TextView organization = view.findViewById(R.id.organization);
+        final TextView orgVerify = view.findViewById(R.id.orgVerify);
 
         if (!((MainActivity)getActivity()).CheckMenuState()){
             wipeCurrentEvent.setVisibility(View.GONE);
@@ -85,7 +93,16 @@ public class Profile_Page extends Fragment {
                         final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
                         userName.setText(linkedTreeMap.get("name").toString());
                         userSurname.setText(linkedTreeMap.get("surname").toString());
+                        organization.setText(linkedTreeMap.get("organization_name").toString());
                         view.setVisibility(View.VISIBLE);
+                        if (linkedTreeMap.get("image").toString() != null && !linkedTreeMap.get("image").toString().equals(""))
+                            Picasso.get().load(linkedTreeMap.get("image").toString()).resize(0, 1000).into(avatar);
+
+                        orgVerify.setVisibility(Integer.parseInt(linkedTreeMap.get("organization_verify").toString()) == 0 ? View.VISIBLE : View.GONE );
+                        phone.setText(linkedTreeMap.get("phone") == null ? "нет данных" :
+                                linkedTreeMap.get("phone").toString().equals("") ? "нет данных" : linkedTreeMap.get("phone").toString());
+                        webLink.setText(linkedTreeMap.get("web_link").toString());
+                        userMail.setText(linkedTreeMap.get("login").toString());
 
                     }
                     @Override
@@ -144,7 +161,20 @@ public class Profile_Page extends Fragment {
                                 eventData[0] = response.body();
                                 final List obj = eventData[0].getObj();
                                 final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
-                                UserData userData = new UserData(Integer.parseInt(linkedTreeMap.get("id").toString()), linkedTreeMap.get("name").toString(), linkedTreeMap.get("surname").toString(), linkedTreeMap.get("image").toString(), Integer.parseInt(linkedTreeMap.get("organization_id").toString()), "null", linkedTreeMap.get("login").toString(), linkedTreeMap.get("password").toString());
+                                UserData userData = new UserData(
+                                        Integer.parseInt(linkedTreeMap.get("id").toString()),
+                                        linkedTreeMap.get("name").toString(),
+                                        linkedTreeMap.get("surname").toString(),
+                                        linkedTreeMap.get("image").toString(),
+                                        Integer.parseInt(linkedTreeMap.get("organization_id").toString()),
+                                        "null",
+                                        linkedTreeMap.get("login").toString(),
+                                        linkedTreeMap.get("password").toString(),
+                                        Integer.parseInt(linkedTreeMap.get("organization_verify").toString()),
+                                        linkedTreeMap.get("phone").toString(),
+                                        linkedTreeMap.get("web_link").toString(),
+                                        linkedTreeMap.get("bio").toString()
+                                );
 
 
                                 NetworkService.getInstance()
@@ -179,7 +209,7 @@ public class Profile_Page extends Fragment {
                 Events_Page events_page = new Events_Page();
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, events_page);
+                fragmentTransaction.replace(R.id.content_main, events_page);
                 fragmentTransaction.addToBackStack("tag7").commit();
             }
         });
@@ -208,7 +238,7 @@ public class Profile_Page extends Fragment {
                 option_page.setArguments(args);
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, option_page);
+                fragmentTransaction.replace(R.id.content_main, option_page);
                 fragmentTransaction.addToBackStack("tag77").commit();
             }
         });
@@ -221,7 +251,7 @@ public class Profile_Page extends Fragment {
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
 
-                fragmentTransaction.replace(R.id.container, contacts_page);
+                fragmentTransaction.replace(R.id.content_main, contacts_page);
                 fragmentTransaction.addToBackStack("tag1").commit();
 
             }
@@ -234,7 +264,7 @@ public class Profile_Page extends Fragment {
                 Bids_Page bids_page = new Bids_Page();
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                fragmentTransaction.replace(R.id.container, bids_page);
+                fragmentTransaction.replace(R.id.content_main, bids_page);
                 fragmentTransaction.addToBackStack("tag777").commit();
             }
         });

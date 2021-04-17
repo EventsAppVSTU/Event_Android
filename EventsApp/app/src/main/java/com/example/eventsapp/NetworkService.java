@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService mInstance;
-    private static final String BASE_URL = "http://yaem.online/";
+    private static final String BASE_URL = "http://yaem.store/";
     private Retrofit mRetrofit;
 
     private NetworkService() {
@@ -22,7 +22,7 @@ public class NetworkService {
         return mInstance;
     }
 
-    public JSONPlaceHolderApi getJSONApi() {
-        return mRetrofit.create(JSONPlaceHolderApi.class);
+    public EventsAppApi getJSONApi() {
+        return mRetrofit.create(EventsAppApi.class);
     }
 }
