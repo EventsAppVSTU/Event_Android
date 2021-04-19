@@ -12,7 +12,7 @@ public class FullUserData<Data> {
     private String status;
     @SerializedName("data")
     @Expose
-    private data data;
+    private data<Data> data;
 
     public FullUserData(String status, FullUserData.data<Data> data) {
         this.status = status;

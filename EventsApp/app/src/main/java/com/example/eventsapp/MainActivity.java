@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity  {
     Plug plug = new Plug();
 
     private int switchState = 0;
+    private boolean menuState = false;
 
     private View itemMenu;
     private BottomNavigationView navView;
@@ -126,21 +127,22 @@ public class MainActivity extends AppCompatActivity  {
                         if(linkedTreeMap.get("current_event") != null){
                             currentEvent = Integer.parseInt(linkedTreeMap.get("current_event").toString());
 
-                            navView.getMenu().clear();
-                            navView.inflateMenu(R.menu.bottom_nav_menu);
-
-                            navView.setVisibility(View.VISIBLE);
-                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-                            navView.setSelectedItemId(R.id.navigation_timeTable);
+//                            navView.getMenu().clear();
+//                            navView.inflateMenu(R.menu.bottom_nav_menu);
+//
+//                            navView.setVisibility(View.VISIBLE);
+//                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//                            navView.setSelectedItemId(R.id.navigation_timeTable);
+                            StartClassicView();
                         }
                         else {
-
-                            navView.getMenu().clear();
-                            navView.inflateMenu(R.menu.bottom_nav_menu2);
-
-                            navView.setVisibility(View.VISIBLE);
-                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-                            navView.setSelectedItemId(R.id.navigation_events);
+                            StartStartView();
+//                            navView.getMenu().clear();
+//                            navView.inflateMenu(R.menu.bottom_nav_menu2);
+//
+//                            navView.setVisibility(View.VISIBLE);
+//                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//                            navView.setSelectedItemId(R.id.navigation_events);
 
 //                            navView1.setVisibility(View.VISIBLE);
 //                            navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -187,9 +189,7 @@ public class MainActivity extends AppCompatActivity  {
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setSelectedItemId(R.id.navigation_timeTable);
-//        navView1.setVisibility(View.GONE);
-//        navView.setVisibility(View.VISIBLE);
-
+        menuState = true;
 
     }
 
@@ -200,22 +200,12 @@ public class MainActivity extends AppCompatActivity  {
 
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setSelectedItemId(R.id.navigation_events);
-
-//        navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        navView1.setSelectedItemId(R.id.navigation_events);
-//        navView.setVisibility(View.GONE);
-//        navView1.setVisibility(View.VISIBLE);
-
+        menuState = false;
 
     }
 
     public boolean CheckMenuState(){
-        if (navView1.getVisibility()==View.VISIBLE){
-            return false;
-        }
-        else {
-            return true;
-        }
+        return menuState;
     }
 
 
