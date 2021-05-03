@@ -19,7 +19,10 @@ public class UserData {
     private String image;
     @SerializedName("organization_id")
     @Expose
-    private int organization_id;
+    private String organization_id;
+    @SerializedName("role")
+    @Expose
+    private int role;
     @SerializedName("current_event")
     @Expose
     private String current_event;
@@ -43,26 +46,7 @@ public class UserData {
     private String bio;
 
 
-
-
-
-
-
-
-//    int id;
-//    String name;
-//    String surname;
-//    String image;
-//    int organization_id;
-//    String current_event;
-//    String login;
-//    String password;
-//    int organization_verify;
-//    String phone;
-//    String web_link;
-//    String bio;
-
-    public UserData(int id, String name, String surname, String image, int organization_id,
+    public UserData(int id, String name, String surname, String image, String organization_id, int role,
                     String current_event, String login, String password, int organization_verify,
                     String phone, String web_link, String bio) {
         this.id = id;
@@ -70,6 +54,7 @@ public class UserData {
         this.surname = surname;
         this.image = image;
         this.organization_id = organization_id;
+        this.role = role;
         this.current_event = current_event;
         this.login = login;
         this.password = password;
@@ -112,13 +97,19 @@ public class UserData {
         this.image = image;
     }
 
-    public int getOrganization_id() {
+    public String getOrganization_id() {
         return organization_id;
     }
 
-    public void setOrganization_id(int organization_id) {
+    public void setOrganization_id(String organization_id) {
         this.organization_id = organization_id;
     }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {this.role = role;}
 
     public String getCurrent_event() {
         return current_event;
@@ -175,6 +166,5 @@ public class UserData {
     public void setBio(String bio) {
         this.bio = bio;
     }
-
 
 }

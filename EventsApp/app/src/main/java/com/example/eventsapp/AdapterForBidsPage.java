@@ -24,11 +24,11 @@ import static java.lang.String.valueOf;
 
 public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.BidsViewHolder>{
 
-    private List<EventServerData> data;
+    private List<FullBidsData> data;
     private Context context;
     private boolean state;
 
-    public AdapterForBidsPage(List<EventServerData> Data, Context Context, boolean State){
+    public AdapterForBidsPage(List<FullBidsData> Data, Context Context, boolean State){
         this.data = Data;
         this.context = Context;
         this.state = State;
@@ -61,19 +61,10 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
             @Override
             public void onClick(View view) {
 
-
-
                 Event_Information_Page eventInfo = new Event_Information_Page();
                 Bundle args = new Bundle();
-                args.putString("name", data.get(position).getName());
-                args.putString("description", data.get(position).getDescription());
-                args.putString("image", data.get(position).getImage());
-                args.putString("startDate", data.get(position).getStartDate());
-                args.putString("endDate", data.get(position).getEndDate());
-                args.putString("place", data.get(position).getPlace());
-                args.putString("id", valueOf(data.get(position).getId()));
+                args.putString("id", valueOf(data.get(position).getEvent_id()));
                 args.putInt("state", (state ? 1 : 0));
-                args.putInt("private", 2);
                 eventInfo.setArguments(args);
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -103,8 +94,8 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
             event_image = itemView.findViewById(R.id.event_image);
         }
         void bind(int Index){
-            event_name.setText(data.get(Index).getName());
-            Picasso.get().load(data.get(Index).getImage()).resize(0, 1000).into(event_image);
+            event_name.setText(data.get(Index).getEvent_name());
+            //Picasso.get().load(data.get(Index).getImage()).resize(0, 1000).into(event_image);
         }
     }
 }

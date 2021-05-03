@@ -39,6 +39,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.gson.internal.LinkedTreeMap;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -90,7 +92,7 @@ public class Registration extends AppCompatActivity {
 
         NetworkService.getInstance()
                 .getJSONApi()
-                .getOrganizations("111 rt")
+                .getOrganizations()
                 .enqueue(new Callback<FullOrganizationsData>() {
                     @Override
                     public void onResponse(@NonNull Call<FullOrganizationsData> call, @NonNull Response<FullOrganizationsData> response) {
@@ -107,18 +109,11 @@ public class Registration extends AppCompatActivity {
                             spinnerMap.put(fullOrganizationsData.getData().getOrganizationsData().get(i).getName(), fullOrganizationsData.getData().getOrganizationsData().get(i).getId());
                         }
 
-
                         Arrays.sort(spinnerArray);
                         System.arraycopy(spinnerArray, 0, spinnerArraySort, 1, spinnerArray.length);
 
 
-
-
-
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_element, spinnerArraySort);
-                        // Определяем разметку для использования при выборе элемента
-
-                        // Применяем адаптер к элементу spinner
                         orgSpinner.setAdapter(adapter);
 
                     }
@@ -128,12 +123,6 @@ public class Registration extends AppCompatActivity {
                         t.printStackTrace();
                     }
                 });
-
-
-
-
-
-
 
 
 
@@ -180,11 +169,14 @@ public class Registration extends AppCompatActivity {
                     regButton.setVisibility(View.GONE);
 
 
+
+
                     RegistrationData registrationData = new RegistrationData(
                             regName.getText().toString(),
                             regSurname.getText().toString(),
                             "null",
                             organization,
+                            0,
                             "null",
                             regEmail.getText().toString(),
                             regPassword.getText().toString(),
@@ -197,12 +189,12 @@ public class Registration extends AppCompatActivity {
                     NetworkService.getInstance()
                             .getJSONApi()
                             .createUser(registrationData)
-                            .enqueue(new Callback<FullUserData<UserData>>() {
+                            .enqueue(new Callback<GeneralData<UserData>>() {
                                 @Override
-                                public void onResponse(@NonNull Call<FullUserData<UserData>> call, @NonNull Response<FullUserData<UserData>> response) {
-                                    final FullUserData<UserData> fullUserData = response.body();
+                                public void onResponse(@NonNull Call<GeneralData<UserData>> call, @NonNull Response<GeneralData<UserData>> response) {
+                                    final GeneralData<UserData> generalData = response.body();
 
-                                    if (fullUserData.getStatus().equals("ok")) {
+                                    if (generalData.getStatus().equals("ok")) {
 
                                         if (tmpBitmap != null) {
 
@@ -228,9 +220,11 @@ public class Registration extends AppCompatActivity {
                                                         @Override
                                                         public void onSuccess(Uri uri) {
 
-                                                            UserData userData = fullUserData.getData().getUserData().get(0);
+                                                            UserData userData = generalData.getData().getAPIData().get(0);
                                                             userData.setImage(uri.toString());
                                                             userData.setCurrent_event("null");
+                                                            if (generalData.getData().getAPIData().get(0).getOrganization_id() == null)
+                                                                userData.setOrganization_id("null");
                                                             String authorization = userData.getId() + " "  + userData.getPassword();
 
                                                             NetworkService.getInstance()
@@ -277,7 +271,7 @@ public class Registration extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onFailure(@NonNull Call<FullUserData<UserData>> call, @NonNull Throwable t) {
+                                public void onFailure(@NonNull Call<GeneralData<UserData>> call, @NonNull Throwable t) {
                                     Toast.makeText(getApplicationContext(), "Подключение к серверу отсутствует", Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
                                     regButton.setVisibility(View.VISIBLE);

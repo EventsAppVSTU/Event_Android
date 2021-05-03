@@ -62,56 +62,90 @@ public class Events_Page extends Fragment {
 
         NetworkService.getInstance()
                 .getJSONApi()
-                .getEventsData(authorization)
+                .getUserData(authorization, idSQL)
                 .enqueue(new Callback<EventData>() {
                     @Override
                     public void onResponse(@NonNull Call<EventData> call, @NonNull Response<EventData> response) {
-                        eventData = response.body();
-                        final List obj = eventData.getObj();
-                        final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
-                        String id = linkedTreeMap.get("id").toString();
+                        EventData userData = response.body();
+                        List obj = userData.getObj();
+                        LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
 
-                        final RecyclerView eventsList = view.findViewById(R.id.eventsList);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        eventsList.setLayoutManager(layoutManager);
-                        final AdapterForEventsList[] EventsAdapter = {new AdapterForEventsList(context, obj, header)};
-                        eventsList.setAdapter(EventsAdapter[0]);
-                        eventsList.setHasFixedSize(true);
+                        Integer organization_id;
+                        if (linkedTreeMap.get("organization_id") != null && Integer.parseInt(linkedTreeMap.get("organization_verify").toString()) == 1)
+                         organization_id = Integer.parseInt(linkedTreeMap.get("organization_id").toString());
+                        else organization_id = null;
 
 
-                        Search.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                            }
-                            @Override
-                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                String userInput = charSequence.toString();
-                                List newObj = new ArrayList();
 
-                                for(int k = 0; k< obj.size(); k++){
-                                    LinkedTreeMap linkedTreeMapNew = (LinkedTreeMap) obj.get(k);
-                                    if (Pattern.compile(Pattern.quote(userInput), Pattern.CASE_INSENSITIVE).matcher(linkedTreeMapNew.get("name").toString()).find()){
-                                        newObj.add(obj.get(k));
+                        NetworkService.getInstance()
+                                .getJSONApi()
+                                .getEventsData(authorization, null, organization_id, null)
+                                .enqueue(new Callback<EventData>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<EventData> call, @NonNull Response<EventData> response) {
+                                        eventData = response.body();
+                                        final List obj = eventData.getObj();
+                                        final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
+                                        String id = linkedTreeMap.get("id").toString();
+
+                                        final RecyclerView eventsList = view.findViewById(R.id.eventsList);
+                                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                                        eventsList.setLayoutManager(layoutManager);
+                                        final AdapterForEventsList[] EventsAdapter = {new AdapterForEventsList(context, obj, header)};
+                                        eventsList.setAdapter(EventsAdapter[0]);
+                                        eventsList.setHasFixedSize(true);
+
+
+                                        Search.addTextChangedListener(new TextWatcher() {
+                                            @Override
+                                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                            }
+                                            @Override
+                                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                                String userInput = charSequence.toString();
+                                                List newObj = new ArrayList();
+
+                                                for(int k = 0; k< obj.size(); k++){
+                                                    LinkedTreeMap linkedTreeMapNew = (LinkedTreeMap) obj.get(k);
+                                                    if (Pattern.compile(Pattern.quote(userInput), Pattern.CASE_INSENSITIVE).matcher(linkedTreeMapNew.get("name").toString()).find()){
+                                                        newObj.add(obj.get(k));
+                                                    }
+                                                }
+
+                                                EventsAdapter[0] = new AdapterForEventsList(context, newObj, header);
+                                                eventsList.setAdapter(EventsAdapter[0]);
+
+                                            }
+
+                                            @Override
+                                            public void afterTextChanged(Editable editable) {
+
+                                            }
+                                        });
                                     }
-                                }
 
-                                EventsAdapter[0] = new AdapterForEventsList(context, newObj, header);
-                                eventsList.setAdapter(EventsAdapter[0]);
+                                    @Override
+                                    public void onFailure(@NonNull Call<EventData> call, @NonNull Throwable t) {
+                                        t.printStackTrace();
+                                    }
+                                });
 
-                            }
 
-                            @Override
-                            public void afterTextChanged(Editable editable) {
 
-                            }
-                        });
+
+
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<EventData> call, @NonNull Throwable t) {
+
                         t.printStackTrace();
                     }
                 });
+
+
+
+
 
 
 

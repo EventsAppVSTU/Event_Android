@@ -53,9 +53,7 @@ public class Profile_Page extends Fragment {
         final ProgressBar progressBar = view.findViewById(R.id.progressBar2);
         LinearLayout option = view.findViewById(R.id.option);
         LinearLayout contacts = view.findViewById(R.id.contacts);
-//        LinearLayout support = view.findViewById(R.id.support);
         Button exitBtn = view.findViewById(R.id.exitBtn);
-//        final Integer id = null;
         final ImageView avatar = view.findViewById(R.id.avatar);
         final TextView userName = view.findViewById(R.id.userName);
         final TextView userSurname = view.findViewById(R.id.userSurname);
@@ -64,6 +62,7 @@ public class Profile_Page extends Fragment {
         final TextView userMail = view.findViewById(R.id.userMail);
         final TextView organization = view.findViewById(R.id.organization);
         final TextView orgVerify = view.findViewById(R.id.orgVerify);
+        final TextView bio = view.findViewById(R.id.bio);
 
         if (!((MainActivity)getActivity()).CheckMenuState()){
             wipeCurrentEvent.setVisibility(View.GONE);
@@ -75,11 +74,11 @@ public class Profile_Page extends Fragment {
 
 
         SQLiteDatabase dbUser = getContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
-        dbUser.execSQL("CREATE TABLE IF NOT EXISTS user (id INTEGER, login TEXT, password TEXT )");
         Cursor query = dbUser.rawQuery("SELECT * FROM user;", null);
         query.moveToFirst();
         int idSQLG = query.getInt(query.getColumnIndex("id"));
         String passwordSQLG = query.getString( query.getColumnIndex("password") );
+        query.close();
 
         final String authorization = idSQLG + " "  + passwordSQLG;
         NetworkService.getInstance()
@@ -99,10 +98,19 @@ public class Profile_Page extends Fragment {
                             Picasso.get().load(linkedTreeMap.get("image").toString()).resize(0, 1000).into(avatar);
 
                         orgVerify.setVisibility(Integer.parseInt(linkedTreeMap.get("organization_verify").toString()) == 0 ? View.VISIBLE : View.GONE );
+
                         phone.setText(linkedTreeMap.get("phone") == null ? "нет данных" :
                                 linkedTreeMap.get("phone").toString().equals("") ? "нет данных" : linkedTreeMap.get("phone").toString());
-                        webLink.setText(linkedTreeMap.get("web_link").toString());
-                        userMail.setText(linkedTreeMap.get("login").toString());
+
+                        webLink.setText(linkedTreeMap.get("web_link") == null ? "нет данных" :
+                                linkedTreeMap.get("web_link").toString().equals("") ? "нет данных" : linkedTreeMap.get("web_link").toString());
+
+                        userMail.setText(linkedTreeMap.get("login") == null ? "нет данных" :
+                                linkedTreeMap.get("login").toString().equals("") ? "нет данных" : linkedTreeMap.get("login").toString());
+
+                        bio.setText(linkedTreeMap.get("bio") == null ? "нет данных" :
+                                linkedTreeMap.get("bio").toString().equals("") ? "нет данных" : linkedTreeMap.get("bio").toString());
+
 
                     }
                     @Override
@@ -127,7 +135,6 @@ public class Profile_Page extends Fragment {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = getContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
-                db.execSQL("CREATE TABLE IF NOT EXISTS user (id INTEGER, login TEXT, password TEXT )");
                 String sqlInput = "DELETE FROM user";
                 db.execSQL(sqlInput);
                 Intent myIntent = new Intent(getContext(), Authorization.class);
@@ -145,11 +152,11 @@ public class Profile_Page extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
 
                 SQLiteDatabase db = getContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
-                db.execSQL("CREATE TABLE IF NOT EXISTS user (id INTEGER, login TEXT, password TEXT )");
                 Cursor query = db.rawQuery("SELECT * FROM user;", null);
                 query.moveToFirst();
                 int idSQL = query.getInt(query.getColumnIndex("id"));
                 String passwordSQL = query.getString( query.getColumnIndex("password") );
+                query.close();
 
                 final String authorization = idSQL + " "  + passwordSQL;
                 NetworkService.getInstance()
@@ -166,7 +173,8 @@ public class Profile_Page extends Fragment {
                                         linkedTreeMap.get("name").toString(),
                                         linkedTreeMap.get("surname").toString(),
                                         linkedTreeMap.get("image").toString(),
-                                        Integer.parseInt(linkedTreeMap.get("organization_id").toString()),
+                                        linkedTreeMap.get("organization_id").toString(),
+                                        0,
                                         "null",
                                         linkedTreeMap.get("login").toString(),
                                         linkedTreeMap.get("password").toString(),

@@ -69,15 +69,15 @@ public class AdapterForEventsList extends RecyclerView.Adapter<AdapterForEventsL
                     LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(position);
                     Event_Information_Page eventInfo = new Event_Information_Page();
                     Bundle args = new Bundle();
-                    args.putString("name", linkedTreeMap.get("name").toString());
-                    args.putString("description", linkedTreeMap.get("description").toString());
-                    args.putString("image", linkedTreeMap.get("image").toString());
-                    args.putString("startDate", linkedTreeMap.get("startDate").toString());
-                    args.putString("endDate", linkedTreeMap.get("endDate").toString());
-                    args.putString("place", linkedTreeMap.get("place").toString());
+//                    args.putString("name", linkedTreeMap.get("name").toString());
+//                    args.putString("description", linkedTreeMap.get("description").toString());
+//                    args.putString("image", linkedTreeMap.get("image").toString());
+//                    args.putString("startDate", linkedTreeMap.get("startDate").toString());
+//                    args.putString("endDate", linkedTreeMap.get("endDate").toString());
+//                    args.putString("place", linkedTreeMap.get("place").toString());
                     args.putString("id", linkedTreeMap.get("id").toString());
                     args.putInt("state", 2);
-                    args.putInt("private", Integer.parseInt(linkedTreeMap.get("private").toString()));
+                    //args.putInt("private", Integer.parseInt(linkedTreeMap.get("private").toString()));
 
                     eventInfo.setArguments(args);
                     FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -232,9 +232,6 @@ public class AdapterForEventsList extends RecyclerView.Adapter<AdapterForEventsL
             }
 
         }
-
-
-
 
     }
 

@@ -22,7 +22,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-    <com.bosphere.fadingedgelayout.FadingEdgeLayout
+
+        <ProgressBar
+            android:id="@+id/progressBarBids"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:layout_gravity="center"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/bidsStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200dp"
+            android:textSize="20dp"
+            android:text="У вас нет активных заявок"
+            android:visibility="gone"/>
+
+        <com.bosphere.fadingedgelayout.FadingEdgeLayout
         android:id="@+id/fading_edge_layout"
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
@@ -34,7 +54,8 @@
         app:fel_size_bottom="80dp"
         app:fel_size_left="80dp"
         app:fel_size_right="80dp"
-        android:layout_above="@+id/switch4">
+        android:layout_above="@+id/switch4"
+        android:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bidsList"

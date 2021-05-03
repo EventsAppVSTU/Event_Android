@@ -123,32 +123,13 @@ public class MainActivity extends AppCompatActivity  {
                         userData[0] = response.body();
                         final List obj = userData[0].getObj();
                         final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
-//                        String currentEvent = linkedTreeMap.get("current_event").toString();
                         if(linkedTreeMap.get("current_event") != null){
                             currentEvent = Integer.parseInt(linkedTreeMap.get("current_event").toString());
-
-//                            navView.getMenu().clear();
-//                            navView.inflateMenu(R.menu.bottom_nav_menu);
-//
-//                            navView.setVisibility(View.VISIBLE);
-//                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//                            navView.setSelectedItemId(R.id.navigation_timeTable);
                             StartClassicView();
                         }
                         else {
                             StartStartView();
-//                            navView.getMenu().clear();
-//                            navView.inflateMenu(R.menu.bottom_nav_menu2);
-//
-//                            navView.setVisibility(View.VISIBLE);
-//                            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//                            navView.setSelectedItemId(R.id.navigation_events);
-
-//                            navView1.setVisibility(View.VISIBLE);
-//                            navView1.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//                            navView1.setSelectedItemId(R.id.navigation_events);
                         }
-
 
                     }
 
