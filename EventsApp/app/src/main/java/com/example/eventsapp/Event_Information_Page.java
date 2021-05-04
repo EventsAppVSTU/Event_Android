@@ -360,12 +360,16 @@ public class Event_Information_Page extends Fragment {
                                                                     EventData eventData = response.body();
                                                                     final List obj = eventData.getObj();
                                                                     final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
+                                                                    String org_id;
+                                                                    if (linkedTreeMap.get("organization_id") == null){
+                                                                        org_id = null;
+                                                                    } else org_id = linkedTreeMap.get("organization_id").toString();
                                                                     UserData userData = new UserData(
                                                                             Integer.parseInt(linkedTreeMap.get("id").toString()),
                                                                             linkedTreeMap.get("name").toString(),
                                                                             linkedTreeMap.get("surname").toString(),
                                                                             linkedTreeMap.get("image").toString(),
-                                                                            linkedTreeMap.get("organization_id").toString(),
+                                                                            org_id,
                                                                             0,
                                                                             id.toString(),
                                                                             linkedTreeMap.get("login").toString(),
@@ -433,12 +437,16 @@ public class Event_Information_Page extends Fragment {
                                                     EventData eventData = response.body();
                                                     final List obj = eventData.getObj();
                                                     final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
+                                                    String org_id;
+                                                    if (linkedTreeMap.get("organization_id") == null){
+                                                        org_id = null;
+                                                    } else org_id = linkedTreeMap.get("organization_id").toString();
                                                     UserData userData = new UserData(
                                                             Integer.parseInt(linkedTreeMap.get("id").toString()),
                                                             linkedTreeMap.get("name").toString(),
                                                             linkedTreeMap.get("surname").toString(),
                                                             linkedTreeMap.get("image").toString(),
-                                                            linkedTreeMap.get("organization_id").toString(),
+                                                            org_id,
                                                             0,
                                                             id.toString(),
                                                             linkedTreeMap.get("login").toString(),

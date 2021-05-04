@@ -21,7 +21,7 @@ public class UserData {
     @Expose
     private String organization_id;
     @SerializedName("role")
-    @Expose
+    @Expose (serialize = false)
     private int role;
     @SerializedName("current_event")
     @Expose

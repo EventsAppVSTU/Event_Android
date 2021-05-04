@@ -168,12 +168,16 @@ public class Profile_Page extends Fragment {
                                 eventData[0] = response.body();
                                 final List obj = eventData[0].getObj();
                                 final LinkedTreeMap linkedTreeMap = (LinkedTreeMap) obj.get(0);
+                                String org_id;
+                                if (linkedTreeMap.get("organization_id") == null){
+                                    org_id = null;
+                                } else org_id = linkedTreeMap.get("organization_id").toString();
                                 UserData userData = new UserData(
                                         Integer.parseInt(linkedTreeMap.get("id").toString()),
                                         linkedTreeMap.get("name").toString(),
                                         linkedTreeMap.get("surname").toString(),
                                         linkedTreeMap.get("image").toString(),
-                                        linkedTreeMap.get("organization_id").toString(),
+                                        org_id,
                                         0,
                                         "null",
                                         linkedTreeMap.get("login").toString(),
