@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мои события"
+        android:textColor="@color/textColor"
+        android:textSize="28dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressBarMyEvents"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="200dp"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/myEventsStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:textSize="20dp"
+        android:text="У вас нет мероприятий"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <com.bosphere.fadingedgelayout.FadingEdgeLayout
+        android:id="@+id/my_fading_edge_layout"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myEventsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+
+    </com.bosphere.fadingedgelayout.FadingEdgeLayout>
+
+</LinearLayout>

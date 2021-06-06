@@ -154,23 +154,31 @@
         android:textSize="18dp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"/>
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="ИЛИ"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="14dp"-->
-        <!--android:textColor="@color/textColorLight"/>-->
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ИЛИ"
+        android:gravity="center"
+        android:textSize="14dp"
+        android:textColor="@color/textColorLight"/>
 
-        <!--android:text="Добавить в избранное"-->
-        <!--android:gravity="center"-->
-        <!--android:textSize="18dp"-->
-        <!--android:textStyle="bold"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:textColor="@color/colorPrimary"/>-->
+            <ProgressBar
+                android:id="@+id/progressBarFav"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+    <TextView
+        android:id="@+id/addFavourite"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Добавить в мои события"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorAccent"/>
 
 
         </LinearLayout>

@@ -6,17 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <com.github.glomadrian.codeinputlib.CodeInput
 
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:underline_color="#457ad1"
-        app:underline_selected_color="#9e1ace"
-        app:text_color="#b12eff"
-        app:hint_color="#77ce9d"
-        app:hint_text="Pin code"
-        app:codes="4"
-        />
 
 </LinearLayout>

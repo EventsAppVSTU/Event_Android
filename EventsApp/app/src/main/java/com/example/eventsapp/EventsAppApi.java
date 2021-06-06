@@ -63,4 +63,24 @@ public interface EventsAppApi {
                                                    @Query("event_id") Integer event_id,
                                                    @Query("state_id") Integer state_id);
 
+    @POST("/robo/performances/choosenPerformances.php")
+    public Call <Object> setChosenPerf (@Header("Authorization") String authorization,
+                                        @Body ChosenPerformancesData.PerformancesArray PerfData);
+
+
+    @GET("/robo/performances/choosenPerformancesInfo.php")
+    public Call<EventData> getChosenPerf(@Header("Authorization") String authorization,
+                                         @Query("event_id") int event_id, @Query("user_id") int user_id);
+
+    @GET("/robo/events/choosenEventsInfo.php")
+    public Call<GeneralData<ChosenEventsData>> getChosenEvents(@Header("Authorization") String authorization,
+                                         @Query("event_id") int event_id, @Query("user_id") int user_id);
+
+    @POST("/robo/events/choosenEvents.php")
+    public Call <GeneralData<ChosenEventsData>> setChosenEvent(@Header("Authorization") String authorization,
+                                        @Body ChosenEventsData EventData);
+
+    @DELETE("/robo/events/choosenEvents.php")
+    public Call <Object> deleteChosenEvent (@Header("Authorization") String authorization,  @Query("id") int id);
+
 }

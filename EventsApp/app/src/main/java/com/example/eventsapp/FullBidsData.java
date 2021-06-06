@@ -29,8 +29,11 @@ public class FullBidsData {
     @SerializedName("state_name")
     @Expose
     private String state_name;
+    @SerializedName("event_image")
+    @Expose
+    private String event_image;
 
-    public FullBidsData(Integer id, int user_id, int event_id, String code, int state_id, String user_name, String event_name, String state_name) {
+    public FullBidsData(Integer id, int user_id, int event_id, String code, int state_id, String user_name, String event_name, String state_name, String event_image) {
         this.id = id;
         this.user_id = user_id;
         this.event_id = event_id;
@@ -39,6 +42,7 @@ public class FullBidsData {
         this.user_name = user_name;
         this.event_name = event_name;
         this.state_name = state_name;
+        this.event_image = event_image;
     }
 
     public Integer getId() {
@@ -103,5 +107,13 @@ public class FullBidsData {
 
     public void setState_name(String state_name) {
         this.state_name = state_name;
+    }
+
+    public String getEvent_image() {
+        return event_image;
+    }
+
+    public void setEvent_image(String event_image) {
+        this.event_image = event_image;
     }
 }

@@ -7,7 +7,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Контакты"
+        android:text="Обратная связь"
         android:textColor="@color/textColor"
         android:textSize="28dp"
         android:layout_marginLeft="20dp"
@@ -18,19 +18,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:text="Для связи с разработчиком, по любым вопросам работы приложения, вы можете обратиться на следующий электронный адрес:"
+        android:gravity="center"
+        android:text="Если у вас появились вопросы по работе приложения, или вам необходимо связаться с администратором - вы можете отправить ваше обращение, оно будет рассмотрено в ближайшее время. "
         />
     <TextView
-
+        android:id="@+id/sendAppeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="surin190899@gmail.com"
-        android:textColor="@color/textColor"
+        android:text="Отправить обращение"
+        android:textColor="@color/colorPrimary"
         android:textSize="22dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:textStyle="bold"
         android:layout_gravity="center"
         />

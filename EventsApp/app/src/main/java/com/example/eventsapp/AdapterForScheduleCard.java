@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -29,10 +30,18 @@ public class AdapterForScheduleCard extends RecyclerView.Adapter<AdapterForSched
 
     private List<Object> data;
     private Context context;
+    public ChosenPerformancesData.PerformancesArray performancesArray;
+    private boolean state;
+    private int user;
 
-    public AdapterForScheduleCard(List<Object> Data, Context Context){
+    public AdapterForScheduleCard(List<Object> Data, Context Context,
+                                  ChosenPerformancesData.PerformancesArray performancesArray,
+                                  boolean state, int user){
         this.data = Data;
         this.context = Context;
+        this.performancesArray = performancesArray;
+        this.state = state;
+        this.user = user;
 
     }
 
@@ -51,8 +60,27 @@ public class AdapterForScheduleCard extends RecyclerView.Adapter<AdapterForSched
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterForScheduleCard.ScheduleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final AdapterForScheduleCard.ScheduleViewHolder holder, final int position) {
         holder.bind(position);
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinkedTreeMap linkedTreeMap = (LinkedTreeMap) data.get(position);
+                ChosenPerformancesData chosenPerformancesData = new ChosenPerformancesData(user,
+                        Integer.parseInt(linkedTreeMap.get("id").toString()));
+                if (holder.checkBox.isChecked()) {
+
+                    performancesArray.performances_array.add(chosenPerformancesData);
+                } else {
+                    for (int i = 0; i < performancesArray.performances_array.size(); i++) {
+                        if (performancesArray.performances_array.get(i).getPerformances_id() == chosenPerformancesData.getPerformances_id()){
+                            performancesArray.performances_array.remove(i);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
 
     }
 
@@ -66,27 +94,33 @@ public class AdapterForScheduleCard extends RecyclerView.Adapter<AdapterForSched
         TextView endTime;
         TextView performanceName;
         TextView speaker;
+        CheckBox checkBox;
         public ScheduleViewHolder(@NonNull View itemView) {
             super(itemView);
             startTime = itemView.findViewById(R.id.timeStart);
             endTime = itemView.findViewById(R.id.timeEnd);
             performanceName = itemView.findViewById(R.id.performanceName);
             speaker = itemView.findViewById(R.id.speakerName);
+            checkBox = itemView.findViewById(R.id.checkBoxTimeTable);
         }
-        void bind(int Index){
-            LinkedTreeMap linkedTreeMap = (LinkedTreeMap) data.get(Index);
-            String startTimeResult = "";
-            String[] sTime = linkedTreeMap.get("startTime").toString().split(":");
-            startTimeResult = sTime[0]+":"+sTime[1];
-            startTime.setText(startTimeResult);
+        void bind(int Index) {
 
-            String endTimeResult = "";
-            String[] eTime = linkedTreeMap.get("endTime").toString().split(":");
-            endTimeResult = eTime[0]+":"+eTime[1];
-            endTime.setText(endTimeResult);
+                LinkedTreeMap linkedTreeMap = (LinkedTreeMap) data.get(Index);
+                String startTimeResult = "";
+                String[] sTime = linkedTreeMap.get("startTime").toString().split(":");
+                startTimeResult = sTime[0] + ":" + sTime[1];
+                startTime.setText(startTimeResult);
 
-            performanceName.setText(linkedTreeMap.get("name").toString());
-            speaker.setText(linkedTreeMap.get("speaker").toString());
+                String endTimeResult = "";
+                String[] eTime = linkedTreeMap.get("endTime").toString().split(":");
+                endTimeResult = eTime[0] + ":" + eTime[1];
+                endTime.setText(endTimeResult);
+
+                performanceName.setText(linkedTreeMap.get("performances_name").toString());
+                speaker.setText(linkedTreeMap.get("speaker").toString());
+
+                if (!state) checkBox.setVisibility(View.VISIBLE);
+
         }
     }
 }

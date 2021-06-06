@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,36 +14,35 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.internal.LinkedTreeMap;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.BidsViewHolder>{
+public class AdapterForMyEventsList extends RecyclerView.Adapter<AdapterForMyEventsList.MyEventsViewHolder>{
 
-    private List<FullBidsData> data;
+    private List<ChosenEventsData> data;
     private Context context;
-    private boolean state;
 
-    public AdapterForBidsPage(List<FullBidsData> Data, Context Context, boolean State){
+
+    public AdapterForMyEventsList(List<ChosenEventsData> Data, Context Context){
         this.data = Data;
         this.context = Context;
-        this.state = State;
+
 
     }
 
     @NonNull
     @Override
-    public AdapterForBidsPage.BidsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterForMyEventsList.MyEventsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final Context context = parent.getContext();
         int layoutIdForListItem = R.layout.bids_element;
 
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View view = inflater.inflate(layoutIdForListItem, parent, false);
-        AdapterForBidsPage.BidsViewHolder viewHolder = new AdapterForBidsPage.BidsViewHolder(view);
+        AdapterForMyEventsList.MyEventsViewHolder viewHolder = new AdapterForMyEventsList.MyEventsViewHolder(view);
 
 
 
@@ -54,7 +52,7 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterForBidsPage.BidsViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull AdapterForMyEventsList.MyEventsViewHolder holder, final int position) {
         holder.bind(position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +62,12 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
                 Event_Information_Page eventInfo = new Event_Information_Page();
                 Bundle args = new Bundle();
                 args.putString("id", valueOf(data.get(position).getEvent_id()));
-                args.putInt("state", (state ? 1 : 0));
+                args.putInt("state", 2);
                 eventInfo.setArguments(args);
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
                 fragmentTransaction.replace(R.id.content_main, eventInfo);
-                fragmentTransaction.addToBackStack("bidsPage").commit();
+                fragmentTransaction.addToBackStack("myEventsPage").commit();
             }
         });
 
@@ -85,11 +83,11 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
         return data.size();
     }
 
-    class BidsViewHolder extends RecyclerView.ViewHolder {
+    class MyEventsViewHolder extends RecyclerView.ViewHolder {
         TextView event_name;
         ImageView event_image;
 
-        public BidsViewHolder(@NonNull View itemView) {
+        public MyEventsViewHolder(@NonNull View itemView) {
             super(itemView);
             event_name = itemView.findViewById(R.id.event_name);
             event_image = itemView.findViewById(R.id.event_image);
@@ -97,9 +95,7 @@ public class AdapterForBidsPage extends RecyclerView.Adapter<AdapterForBidsPage.
 
         void bind(int Index) {
             event_name.setText(data.get(Index).getEvent_name());
-            if (data.get(Index).getEvent_image() != null) {
-                Picasso.get().load(data.get(Index).getEvent_image()).resize(0, 1000).into(event_image);
-            }
+            event_image.setVisibility(View.GONE);
         }
     }
 }

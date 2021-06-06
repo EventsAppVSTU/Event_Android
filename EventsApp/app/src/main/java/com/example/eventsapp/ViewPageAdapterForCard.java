@@ -20,10 +20,19 @@ public class ViewPageAdapterForCard extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
     private List<List<Object>> data;
+    public ChosenPerformancesData.PerformancesArray performancesArray;
+    private boolean state;
+    private int user;
 
-    public ViewPageAdapterForCard( Context context, List<List<Object>> Data) {
+
+    public ViewPageAdapterForCard( Context context, List<List<Object>> Data,
+                                   ChosenPerformancesData.PerformancesArray performancesArray,
+                                   boolean state, int user) {
         this.context = context;
         this.data = Data;
+        this.performancesArray = performancesArray;
+        this.state = state;
+        this.user = user;
     }
 
     @Override
@@ -43,7 +52,7 @@ public class ViewPageAdapterForCard extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.day_element, container, false);
         TextView date = view.findViewById(R.id.date);
         LinkedTreeMap linkedTreeMap = (LinkedTreeMap) data.get(position).get(0);
-
+        AdapterForScheduleCard ScheduleAdapter;
         DateWork dateWork = new DateWork();
         String dateResult = dateWork.getPerfDate(linkedTreeMap.get("datePerf").toString());
 
@@ -52,9 +61,8 @@ public class ViewPageAdapterForCard extends PagerAdapter {
         RecyclerView TodayList = view.findViewById(R.id.TodayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         TodayList.setLayoutManager(layoutManager);
-        AdapterForScheduleCard ScheduleAdapter;
         TodayList.setHasFixedSize(true);
-        ScheduleAdapter = new AdapterForScheduleCard(data.get(position), context);
+        ScheduleAdapter = new AdapterForScheduleCard(data.get(position), context, performancesArray, state, user);
         TodayList.setAdapter(ScheduleAdapter);
 
         container.addView(view, 0);
@@ -65,4 +73,5 @@ public class ViewPageAdapterForCard extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View)object);
     }
+
 }

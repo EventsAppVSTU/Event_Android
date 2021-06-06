@@ -48,6 +48,7 @@ public class Profile_Page extends Fragment {
         view.setVisibility(View.GONE);
         CardView changeEvent = view.findViewById(R.id.changeEvent);
         CardView bids = view.findViewById(R.id.bids);
+        CardView myEvents = view.findViewById(R.id.myEvents);
         final TextView wipeCurrentEvent = view.findViewById(R.id.wipeCurrentEvent);
         final EventData[] eventData = {new EventData()};
         final ProgressBar progressBar = view.findViewById(R.id.progressBar2);
@@ -70,9 +71,7 @@ public class Profile_Page extends Fragment {
 
         ((MainActivity)getActivity()).setSwitchState(0);
 
-
-
-
+        
         SQLiteDatabase dbUser = getContext().openOrCreateDatabase("EventsApp.db", MODE_PRIVATE, null);
         Cursor query = dbUser.rawQuery("SELECT * FROM user;", null);
         query.moveToFirst();
@@ -277,6 +276,17 @@ public class Profile_Page extends Fragment {
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();
                 fragmentTransaction.replace(R.id.content_main, bids_page);
+                fragmentTransaction.addToBackStack("tag777").commit();
+            }
+        });
+        myEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = getContext();
+                My_Events_Page my_events_page = new My_Events_Page();
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                fragmentTransaction.replace(R.id.content_main, my_events_page);
                 fragmentTransaction.addToBackStack("tag777").commit();
             }
         });
