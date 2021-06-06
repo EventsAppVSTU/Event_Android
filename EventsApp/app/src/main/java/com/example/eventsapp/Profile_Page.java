@@ -96,7 +96,7 @@ public class Profile_Page extends Fragment {
                         if (linkedTreeMap.get("image").toString() != null && !linkedTreeMap.get("image").toString().equals(""))
                             Picasso.get().load(linkedTreeMap.get("image").toString()).resize(0, 1000).into(avatar);
 
-                        orgVerify.setVisibility(Integer.parseInt(linkedTreeMap.get("organization_verify").toString()) == 0 ? View.VISIBLE : View.GONE );
+                        orgVerify.setVisibility(Integer.parseInt(linkedTreeMap.get("organization_verify").toString()) == 0 && linkedTreeMap.get("organization_id") != null ? View.VISIBLE : View.GONE );
 
                         phone.setText(linkedTreeMap.get("phone") == null ? "нет данных" :
                                 linkedTreeMap.get("phone").toString().equals("") ? "нет данных" : linkedTreeMap.get("phone").toString());
@@ -235,17 +235,17 @@ public class Profile_Page extends Fragment {
                 Bundle args = new Bundle();
                 args.putString("name", linkedTreeMap.get("name").toString());
                 args.putString("surname", linkedTreeMap.get("surname").toString());
-                args.putString("image", linkedTreeMap.get("image").toString());
-                args.putString("organization_id", linkedTreeMap.get("organization_id").toString());
-                if(linkedTreeMap.get("current_event") == null){
-                    args.putString("current_event", "nothing");
-                }
-                else {
-                args.putString("current_event", linkedTreeMap.get("current_event").toString());
-                }
+                args.putString("image", linkedTreeMap.get("image") == null ? null : linkedTreeMap.get("image").toString());
+                args.putString("current_event", linkedTreeMap.get("current_event") == null ? null : linkedTreeMap.get("current_event").toString());
                 args.putString("login", linkedTreeMap.get("login").toString());
                 args.putString("password", linkedTreeMap.get("password").toString());
                 args.putString("id", linkedTreeMap.get("id").toString());
+                args.putString("phone", linkedTreeMap.get("phone") == null ? null : linkedTreeMap.get("phone").toString() );
+                args.putString("bio", linkedTreeMap.get("bio") == null ? null : linkedTreeMap.get("bio").toString());
+                args.putString("web_link", linkedTreeMap.get("web_link") == null ? null : linkedTreeMap.get("web_link").toString() );
+                args.putString("organization_verify", linkedTreeMap.get("organization_verify").toString());
+                args.putString("organization_id", linkedTreeMap.get("organization_id") == null ? null : linkedTreeMap.get("organization_id").toString());
+                args.putString("organization_name", linkedTreeMap.get("organization_name") == null ? null : linkedTreeMap.get("organization_name").toString());
                 option_page.setArguments(args);
                 FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = manager.beginTransaction();

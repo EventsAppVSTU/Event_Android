@@ -21,6 +21,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.eventsapp.Registration.md5;
+
 public class Authorization extends AppCompatActivity {
 
     @Override
@@ -50,6 +52,7 @@ public class Authorization extends AppCompatActivity {
                     String login = loginEnter.getText().toString();
                     String password = passwordEnter.getText().toString();
                     if (loginEnter.getText().toString().length() != 0 && passwordEnter.getText().toString().length() != 0) {
+                        password = md5(password);
                         progressBar.setVisibility(View.VISIBLE);
                         authorizationEnter.setVisibility(View.GONE);
                         NetworkService.getInstance()
