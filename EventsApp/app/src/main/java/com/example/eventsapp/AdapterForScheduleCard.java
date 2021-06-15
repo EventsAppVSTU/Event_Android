@@ -116,7 +116,13 @@ public class AdapterForScheduleCard extends RecyclerView.Adapter<AdapterForSched
                 endTimeResult = eTime[0] + ":" + eTime[1];
                 endTime.setText(endTimeResult);
 
-                performanceName.setText(linkedTreeMap.get("performances_name").toString());
+                if (linkedTreeMap.get("performances_name") == null) {
+                    performanceName.setText(linkedTreeMap.get("performance_name").toString());
+                } else {
+                    performanceName.setText(linkedTreeMap.get("performances_name").toString());
+                }
+
+
                 speaker.setText(linkedTreeMap.get("speaker").toString());
 
                 if (!state) checkBox.setVisibility(View.VISIBLE);

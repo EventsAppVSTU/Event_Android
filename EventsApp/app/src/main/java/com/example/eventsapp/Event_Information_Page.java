@@ -67,6 +67,7 @@ public class Event_Information_Page extends Fragment {
 
     private TextView addFavourite;
     private ProgressBar progressBarFav;
+    private TextView OR;
 
     public Event_Information_Page() {
 
@@ -90,6 +91,7 @@ public class Event_Information_Page extends Fragment {
         privateNote = view.findViewById(R.id.privateNote);
         addFavourite = view.findViewById(R.id.addFavourite);
         progressBarFav = view.findViewById(R.id.progressBarFav);
+        OR = view.findViewById(R.id.OR);
         final ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
         state = getArguments().getInt("state");
@@ -229,6 +231,8 @@ public class Event_Information_Page extends Fragment {
                                                             if (state == 0) {
                                                                 ((MainActivity) getActivity()).setSwitchState(0);
                                                                 signUp.setText("Отменить заявку");
+                                                                OR.setVisibility(View.GONE);
+                                                                addFavourite.setVisibility(View.GONE);
                                                                 signUp.setOnClickListener(new View.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(View view) {
@@ -260,6 +264,8 @@ public class Event_Information_Page extends Fragment {
                                                             } else if (state == 1) {
                                                                 ((MainActivity) getActivity()).setSwitchState(1);
                                                                 signUp.setText("Ввести код подтверждения");
+                                                                OR.setVisibility(View.GONE);
+                                                                addFavourite.setVisibility(View.GONE);
                                                                 final EditText editText = view.findViewById(R.id.code_input);
                                                                 editText.setVisibility(View.VISIBLE);
                                                                 signUp.setOnClickListener(new View.OnClickListener() {

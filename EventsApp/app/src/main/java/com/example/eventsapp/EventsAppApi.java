@@ -70,7 +70,7 @@ public interface EventsAppApi {
 
     @GET("/robo/performances/choosenPerformancesInfo.php")
     public Call<EventData> getChosenPerf(@Header("Authorization") String authorization,
-                                         @Query("event_id") int event_id, @Query("user_id") int user_id);
+                                         @Query("event_id") Integer event_id, @Query("user_id") int user_id);
 
     @GET("/robo/events/choosenEventsInfo.php")
     public Call<GeneralData<ChosenEventsData>> getChosenEvents(@Header("Authorization") String authorization,
